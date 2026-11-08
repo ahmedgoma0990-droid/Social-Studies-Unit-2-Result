@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 8 D - Unit 2 Economy Test</title>
+    <!-- استدعاء خط جوجل الحديث Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* خلفية متدرجة عصرية تاخد الشاشة كلها */
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 🏷️ العلامة المائية (Watermark) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 4vw;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.03); /* شفافية عالية جداً */
+            white-space: nowrap;
+            text-align: center;
+            z-index: 0;
+            pointer-events: none; /* عشان ميعطلش الضغط على الأزرار */
+            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* تصميم الكارت الزجاجي (Glassmorphism) */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 650px;
+            position: relative;
+            z-index: 1; /* عشان يظهر فوق العلامة المائية */
+            transition: all 0.4s ease;
+        }
+
+        .school-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .school-header h2 {
+            color: #1a202c;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .school-header p {
+            color: #718096;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #4facfe;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2);
+        }
+
+        .input-group input:disabled {
+            background-color: #edf2f7;
+            color: #a0aec0;
+            cursor: not-allowed;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn:disabled {
+            background: #cbd5e0;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #fff;
+            font-size: 16px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #4facfe;
+            background-color: #f0f9ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #4facfe;
+            background-color: #e6f7ff;
+            color: #0077cc;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(79, 172, 254, 0.2);
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result-box {
+            text-align: center;
+            border: 2px dashed #4facfe;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            background-color: #f8fafc;
+        }
+
+        .result-box h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .result-box p {
+            color: #4a5568;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .score {
+            font-size: 60px;
+            font-weight: 700;
+            color: #00f2fe;
+            margin: 20px 0 5px 0;
+            text-shadow: 0 2px 10px rgba(0, 242, 254, 0.3);
+        }
+
+        .teacher-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #a0aec0;
+            font-weight: 600;
+        }
+
+        /* حركة دخول العناصر */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🏷️ العلامة المائية -->
+<div class="watermark">
+    MR. AHMED GOMAA<br>
+    AJYAL ALMAREFAH INTERNATIONAL SCHOOL
+</div>
+
+<!-- شاشة البداية -->
+<div class="container fade-in" id="start-screen">
+    <div class="school-header">
+        <h2>AJYAL ALMAREFAH INTERNATIONAL SCHOOL</h2>
+        <p>Grade 8 - Social Studies</p>
+    </div>
+    
+    <h1>Unit 2 Economy Test</h1>
+    
+    <div class="input-group">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter your full name" required>
+    </div>
+    <div class="input-group">
+        <label for="studentDate">Date:</label>
+        <input type="date" id="studentDate" required>
+    </div>
+    <div class="input-group">
+        <label for="studentClass">Class:</label>
+        <input type="text" id="studentClass" value="8 D" disabled>
+    </div>
+    <button class="btn" onclick="startQuiz()">Start Test</button>
+    
+    <div class="teacher-footer">Prepared by: Mr. Ahmed Gomaa</div>
+</div>
+
+<!-- شاشة الأسئلة -->
+<div class="container hidden" id="quiz-screen">
+    <div class="progress-container">
+        <div class="progress" id="progress"></div>
+    </div>
+    <p style="text-align: right; font-size: 13px; color: #a0aec0; font-weight: 600; margin-bottom: 15px;" id="question-counter">Question 1 of 25</p>
+    
+    <div id="question-container">
+        <!-- الأسئلة هتظهر هنا -->
+    </div>
+    
+    <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>Next</button>
+</div>
+
+<!-- شاشة التقرير النهائي -->
+<div class="container hidden" id="result-screen">
+    <div class="school-header">
+        <h2>Student Report</h2>
+    </div>
+    <div class="result-box">
+        <p><strong>Name:</strong> <span id="display-name"></span></p>
+        <p><strong>Class:</strong> 8 D</p>
+        <p><strong>Date:</strong> <span id="display-date"></span></p>
+        <hr style="border: none; border-top: 1px solid #cbd5e0; margin: 15px 0;">
+        <div class="score" id="display-score">0</div>
+        <p style="font-size: 18px; font-weight: 700; color: #2d3748;">Out of 10</p>
+    </div>
+    
+    <button class="btn" id="submit-btn" onclick="submitResults()">Submit Results</button>
+    <p id="submit-message" style="color: #38a169; font-weight: 700; margin-top: 15px; text-align: center;"></p>
+    
+    <div class="teacher-footer">Prepared by: Mr. Ahmed Gomaa</div>
+</div>
+
+<script>
+    // ✅ الرابط الخاص بك
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAydB1SN1S34eiw7_tkH0CahevrvXIdO6CRFSGfwFP75p1TzmOuuXrc7keeDbVsm8r/exec"; 
+
+    const questions = [
+        // --- 10 Multiple Choice Questions ---
+        { type: 'mcq', q: "1. What does GDP stand for?", options: ["A) Gross Domestic Product", "B) General Domestic Price", "C) Great Development Plan", "D) Global Demand Product"], answer: "A) Gross Domestic Product" },
+        { type: 'mcq', q: "2. In the GDP formula (C + I + G + NX), what does the letter 'C' stand for?", options: ["A) Capital", "B) Consumption", "C) Cost", "D) Credit"], answer: "B) Consumption" },
+        { type: 'mcq', q: "3. Which factor of economic growth refers to the skills and knowledge of a population?", options: ["A) Physical Capital", "B) Natural Resources", "C) Human Capital", "D) Entrepreneurship"], answer: "C) Human Capital" },
+        { type: 'mcq', q: "4. A period of noticeable decline in economic activity that lasts for several months is called:", options: ["A) Economic Growth", "B) Recession", "C) Inflation", "D) Stock Market"], answer: "B) Recession" },
+        { type: 'mcq', q: "5. What does the PACED model stand for?", options: ["A) Plan, Action, Check, Evaluate, Do", "B) Problem, Answer, Cost, Effect, Data", "C) Price, Amount, Cost, Export, Demand", "D) Problem, Alternatives, Criteria, Evaluate, Decide"], answer: "D) Problem, Alternatives, Criteria, Evaluate, Decide" },
+        { type: 'mcq', q: "6. Which of the following is considered an example of physical capital?", options: ["A) Coal and oil", "B) A worker's education", "C) A factory building", "D) A company's stock"], answer: "C) A factory building" },
+        { type: 'mcq', q: "7. Who are considered 'external decision-makers'?", options: ["A) Managers inside the company", "B) Employees working in the factory", "C) Investors, customers, or bankers outside the business", "D) The government only"], answer: "C) Investors, customers, or bankers outside the business" },
+        { type: 'mcq', q: "8. What is Artificial Intelligence (AI)?", options: ["A) The total value of goods produced", "B) The ability of machines to perform tasks that require human intelligence", "C) A period of economic decline", "D) A tool used to calculate GDP"], answer: "B) The ability of machines to perform tasks that require human intelligence" },
+        { type: 'mcq', q: "9. According to the text, what does an increase in GDP indicate?", options: ["A) The country's economy has improved", "B) The country is going into recession", "C) Unemployment has increased", "D) The stock market has crashed"], answer: "A) The country's economy has improved" },
+        { type: 'mcq', q: "10. Which of the following is NOT a main factor influencing a country's economic growth?", options: ["A) Natural resources", "B) Human capital", "C) Technological development", "D) The stock market"], answer: "D) The stock market" },
+        
+        // --- 5 Fill in the blanks (Word Bank) ---
+        { type: 'mcq', q: "11. ______________ is the total value of goods and services produced in a country during a given period of time.", options: ["A) GDP", "B) Inflation", "C) Recession", "D) PACED"], answer: "A) GDP" },
+        { type: 'mcq', q: "12. The man-made means of production used in a country (like factories and machines) represent ______________.", options: ["A) Human Capital", "B) Natural Resources", "C) Physical Capital", "D) Entrepreneurship"], answer: "C) Physical Capital" },
+        { type: 'mcq', q: "13. A process that helps determine whether a project is beneficial for an individual or a company is called ______________.", options: ["A) Stock Market", "B) Cost-Benefit Analysis", "C) Economic Growth", "D) GDP"], answer: "B) Cost-Benefit Analysis" },
+        { type: 'mcq', q: "14. ______________ is the increase in the production of goods and services that people produce over a period of time.", options: ["A) Recession", "B) Economic Growth", "C) GDP", "D) Human Capital"], answer: "B) Economic Growth" },
+        { type: 'mcq', q: "15. A public market for the trading of companies' stocks at agreed prices is called the ______________.", options: ["A) Physical Capital", "B) Cost-Benefit Analysis", "C) Stock Market", "D) Inflation"], answer: "C) Stock Market" },
+
+        // --- 10 True/False Questions ---
+        { type: 'tf', q: "16. Economic growth always leads to higher unemployment.", options: ["True", "False"], answer: "False" },
+        { type: 'tf', q: "17. Net Export (NX) represents a country's exports minus its imports.", options: ["True", "False"], answer: "True" },
+        { type: 'tf', q: "18. The PACED model is a rational decision-making tool.", options: ["True", "False"], answer: "True" },
+        { type: 'tf', q: "19. AI decreases productivity and increases costs for companies.", options: ["True", "False"], answer: "False" },
+        { type: 'tf', q: "20. Natural resources are made by humans.", options: ["True", "False"], answer: "False" },
+        { type: 'tf', q: "21. Internal decision-makers are individuals within an organization who decide whether to sell a product or hire employees.", options: ["True", "False"], answer: "True" },
+        { type: 'tf', q: "22. A decrease in GDP can lead a country to a recession.", options: ["True", "False"], answer: "True" },
+        { type: 'tf', q: "23. Human capital refers to the machines and factories used in production.", options: ["True", "False"], answer: "False" },
+        { type: 'tf', q: "24. Entrepreneurship is one of the factors that can affect economic growth.", options: ["True", "False"], answer: "True" },
+        { type: 'tf', q: "25. When GDP decreases, the stock market is usually the first to be affected.", options: ["True", "False"], answer: "True" }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentDate = "";
+    const fixedClass = "8 D";
+    let selectedOption = null;
+
+    // تعيين تاريخ اليوم تلقائياً في الخانة كقيمة افتراضية
+    document.getElementById('studentDate').valueAsDate = new Date();
+
+    function startQuiz() {
+        studentName = document.getElementById('studentName').value.trim();
+        studentDate = document.getElementById('studentDate').value;
+        
+        if (!studentName || !studentDate) {
+            alert("Please enter your name and date.");
+            return;
+        }
+
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        document.getElementById('quiz-screen').classList.add('fade-in'); // إضافة حركة
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        selectedOption = null;
+        document.getElementById('next-btn').disabled = true;
+        const qData = questions[currentQuestionIndex];
+        
+        // تحديث شريط التقدم
+        const progress = ((currentQuestionIndex) / questions.length) * 100;
+        document.getElementById('progress').style.width = `${progress}%`;
+        document.getElementById('question-counter').innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+        const container = document.getElementById('question-container');
+        
+        // حركة دخول للسؤال
+        container.classList.remove('fade-in');
+        void container.offsetWidth; // Trigger reflow
+        container.classList.add('fade-in');
+
+        container.innerHTML = `<div class="question-text">${qData.q}</div>`;
+
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+        
+        qData.options.forEach(opt => {
+            const optDiv = document.createElement('div');
+            optDiv.className = 'option';
+            optDiv.innerText = opt;
+            optDiv.onclick = () => selectOption(optDiv, opt);
+            optionsDiv.appendChild(optDiv);
+        });
+        container.appendChild(optionsDiv);
+    }
+
+    function selectOption(element, option) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedOption = option;
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        if (!selectedOption) return;
+
+        const qData = questions[currentQuestionIndex];
+        const isCorrect = (selectedOption === qData.answer);
+
+        if (isCorrect) {
+            score += 0.4; // 10 marks / 25 questions = 0.4 per question
+        }
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        document.getElementById('result-screen').classList.add('fade-in');
+        
+        // عرض تقرير الطالب
+        document.getElementById('display-name').innerText = studentName;
+        document.getElementById('display-date').innerText = studentDate;
+        document.getElementById('display-score').innerText = score.toFixed(1);
+    }
+
+    function submitResults() {
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Submitting...";
+
+        const payload = {
+            name: studentName,
+            className: fixedClass, 
+            score: score.toFixed(1),
+            date: studentDate 
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            document.getElementById('submit-message').innerText = "✅ Results submitted successfully!";
+            submitBtn.innerText = "Submitted";
+            submitBtn.style.background = "#38a169"; // لون أخضر للنجاح
+            submitBtn.style.boxShadow = "none";
+        })
+        .catch((error) => {
+            console.error('Error!', error);
+            document.getElementById('submit-message').style.color = "#e53e3e";
+            document.getElementById('submit-message').innerText = "❌ Error submitting. Please try again.";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Submit Results";
+        });
+    }
+</script>
+</body>
+</html>
